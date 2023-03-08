@@ -20,7 +20,7 @@ const userController = new UserController(
     ),
     new UserDTO()
 )
-
+userRouter.get("/", userController.getUsers)
 userRouter.post("/signup", userController.signup)
 userRouter.post("/login", userController.login)
 
