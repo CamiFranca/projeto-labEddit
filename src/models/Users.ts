@@ -2,16 +2,16 @@ import { USER_ROLES } from "../types"
 
 
 
-// export interface UserModelDB {
-//     id: string,
-//     name: string,
-//     email: string,
-//     password: string,
-//     role: string
+export interface UserModelDB {
+    id: string,
+    nick_name: string,
+    email: string,
+    password: string,
+    role: USER_ROLES
 
-// }
+}
 
-export interface UserModel {
+export interface UserModelBusiness {
     id: string,
     nickName: string,
     email: string,
@@ -71,7 +71,18 @@ export class Users {
 
     }
 
-    public toDBModel(): UserModel {
+    public toDBModel(): UserModelDB {
+        return {
+            id: this.id,
+            nick_name: this.nickName,
+            email: this.email,
+            password: this.password,
+            role: this.role
+      
+        }
+    }
+
+    public toBusinessModel(): UserModelBusiness {
         return {
             id: this.id,
             nickName: this.nickName,
