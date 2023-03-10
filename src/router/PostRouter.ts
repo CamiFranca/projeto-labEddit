@@ -19,5 +19,7 @@ const postController = new PostController(
     new PostDTO()
 )
 
+
 postRouter.get("/", postController.getPosts)
+postRouter.post("/", postController.createPost)
 postRouter.put("/:id", postController.editPost)

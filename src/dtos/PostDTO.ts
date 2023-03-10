@@ -6,7 +6,7 @@ export interface PostDB {
     content: string,
     likes: number,
     dislikes: number,
-    comments: string
+    comments: number
 }
 
 export interface GetPostBusiness {
@@ -15,7 +15,7 @@ export interface GetPostBusiness {
     content: string,
     likes: number,
     dislikes: number,
-    comments: string
+    comments: number
     creatorName: string
 
 }
@@ -24,7 +24,12 @@ export interface GetPostBusiness {
 //     name: string
 
 // }
-export interface CreatePost {
+export interface CreateInputPost {
+    token: string,
+    content: string
+}
+
+export interface CreateOutputPost {
     token: string,
     content: string
 }
@@ -72,6 +77,27 @@ export class PostDTO {
 
         const dto: EditPostOutputDTO = {
             id,
+            token,
+            content
+        }
+
+        return dto
+    }
+
+
+    public CreatePostDTO(
+        token: string | undefined,
+        content: string | undefined
+    ): CreateOutputPost  {
+
+        if (!token) {
+            throw new BadRequestError("É preciso enviar um token.")
+        }
+        if (!content) {
+            throw new BadRequestError("É preciso enviar o content.")
+        }
+
+        const dto:CreateOutputPost = {
             token,
             content
         }

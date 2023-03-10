@@ -1,5 +1,5 @@
 import { PostDatabase } from "../database/PostDatabase";
-import { EditPostOutputDTO, GetPostOutputDTO, PostDB } from "../dtos/PostDTO";
+import { CreateOutputPost, EditPostOutputDTO, GetPostOutputDTO } from "../dtos/PostDTO";
 import { BadRequestError } from "../errors/BadRequestError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { Posts } from "../models/Posts";
@@ -61,9 +61,9 @@ export class PostBusiness {
 
     }
 
-    public editPost = async (input: EditPostOutputDTO): Promise<void> => {
+    public createPost = async (input: CreateOutputPost): Promise<void> => {
 
-        const { id, token, content } = input
+        const { token, content } = input
 
         const tokenValid = this.tokenManager.getPayload(token)
 
@@ -76,15 +76,57 @@ export class PostBusiness {
             throw new BadRequestError("ERRO: É preciso enviar o content.")
 
         }
-        const editSearchById = await this.postDataBase.findPostById(id)
 
-        if (editSearchById === null) {
-            throw new NotFoundError("ERRO: Id não encontrado.")
-        }
-
+        const idNewPost = this.idGenerator.generate()
         const creatorId = tokenValid.id
 
-        if(editSearchById?.id !== creatorId){
+
+        const instancePost = new Posts(
+            idNewPost,
+            creatorId,
+            content,
+            0,
+            0,
+            0
+        )
+
+        const postDB = instancePost.toDBModel()
+
+        await this.postDataBase.insertNewPost(postDB)
+
+    }
+
+    public editPost = async (input: EditPostOutputDTO): Promise<void> => {
+
+        const { id, token, content } = input
+
+console.log("business",input)
+        const tokenValid = this.tokenManager.getPayload(token)
+
+        if (tokenValid === null) {
+            throw new BadRequestError("ERRO: O token é inválido.")
+
+        }
+
+        if (content.length < 1) {
+            throw new BadRequestError("ERRO: É preciso enviar o content.")
+
+        }
+
+        if (id === undefined) {
+            throw new BadRequestError("ERRO: envie o valor do id.")
+
+        }
+
+        const editSearchById = await this.postDataBase.findPostById(id)
+
+        if (!editSearchById) {
+            throw new NotFoundError("ERRO: Id não encontrado.")
+        }
+      
+        const creatorId = tokenValid.id
+
+        if (editSearchById.creator_id !== creatorId) {
             throw new BadRequestError("ERRO: Só o dono da conta pode editar o content.")
 
         }
@@ -103,10 +145,6 @@ export class PostBusiness {
         const updatedContent = instancePosts.toDBModel()
 
         await this.postDataBase.update(id, updatedContent)
-
-
-
-
 
     }
 }
