@@ -14,7 +14,7 @@ CREATE TABLE posts (
         creator_id TEXT NOT NULL,
         content TEXT NOT NULL,
         likes INTEGER DEFAULT(0) NOT NULL,
-        deslikes INTEGER DEFAULT(0) NOT NULL,
+        dislikes INTEGER DEFAULT(0) NOT NULL,
         comments INTEGER DEFAULT(0) NOT NULL,
         FOREIGN KEY (creator_id) REFERENCES users (id) 
         ON DELETE CASCADE
@@ -62,6 +62,7 @@ CREATE TABLE comments(
     ON DELETE CASCADE
     ON UPDATE CASCADE
 );
+
 
 INSERT INTO
     users (id, nick_name, email, password, role)

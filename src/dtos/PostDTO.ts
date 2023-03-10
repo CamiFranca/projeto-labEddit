@@ -1,119 +1,82 @@
-// import { BadRequestError } from "../errors/BadRequestError"
-import { Posts } from "../models/Posts"
-import { Users } from "../models/Users"
+import { BadRequestError } from "../errors/BadRequestError"
 
-export interface GetPostOutputDTO {
+export interface PostDB {
+    id: string,
+    creator_id: string,
+    content: string,
+    likes: number,
+    dislikes: number,
+    comments: string
+}
 
+export interface GetPostBusiness {
     id: string,
     creatorId: string,
     content: string,
     likes: number,
     dislikes: number,
-    createdAt: string,
-    updatedAt: string,
-    creator: {
-        id: string,
-        name: string
-    }
+    comments: string
+    creatorName: string
 
 }
 
+// export interface PostWithUserDTO extends PostDB {
+//     name: string
+
+// }
 export interface CreatePost {
     token: string,
     content: string
 }
 
-export interface EditPost {
+export interface EditPostOutputDTO {
+    id: string,
     token: string,
     content: string
 }
 
+export interface GetPostOutputDTO {
+    token: string
+}
 
-// export class PostDTO {
+export class PostDTO {
 
-//     public getPostDTO(
-//         id: unknown,
-//         creatorId: unknown,
-//         content: unknown,
-//         likes: unknown,
-//         dislikes: unknown,
-//         createdAt: unknown,
-//         updatedAt: unknown,
-//         creator: {
-//             id: unknown,
-//             name: unknown
-// ): GetPostOutputDTO {
+    public getPostsInputDTO(
+        token: string | undefined
 
-//         if (typeof id !== "string") {
-//             throw new BadRequestError("'name' deve ser string")
-//         }
+    ): GetPostOutputDTO {
 
-//         if (typeof creatorId !== "string") {
-//             throw new BadRequestError("'email' deve ser string")
-//         }
+        if (!token) {
+            throw new BadRequestError("É preciso enviar um token")
+        }
 
-//         if (typeof content !== "string") {
-//             throw new BadRequestError("'password' deve ser string")
-//         }
+        const dto: GetPostOutputDTO = {
+            token
+        }
 
-//         if (typeof likes !== "number") {
-//             throw new BadRequestError("'password' deve ser string")
-//         }
+        return dto
+    }
 
-//         if (typeof dislikes !== "number") {
-//             throw new BadRequestError("'password' deve ser string")
-//         }
+    public editPostDTO(
+        id: string,
+        token: string | undefined,
+        content: string | undefined
+    ): EditPostOutputDTO {
 
-//         if (typeof createdAt !== "string") {
-//             throw new BadRequestError("'password' deve ser string")
-//         }
+        if (!token) {
+            throw new BadRequestError("É preciso enviar um token.")
+        }
+        if (!content) {
+            throw new BadRequestError("É preciso enviar o content.")
+        }
 
-//         if (typeof updatedAt !== "string") {
-//             throw new BadRequestError("'password' deve ser string")
-//         }
+        const dto: EditPostOutputDTO = {
+            id,
+            token,
+            content
+        }
 
-//         if (typeof creator.id !== "string") {
-//             throw new BadRequestError("'password' deve ser string")
-//         }
+        return dto
+    }
 
-//         if (typeof creator.name !== "string") {
-//             throw new BadRequestError("'password' deve ser string")
-//         }
-//         const dto: GetPostOutputDTO = {
-
-//             id,
-//             creatorId,
-//             content,
-//             likes,
-//             dislikes,
-//             createdAt,
-//             updatedAt,
-//             creator: {
-//                 id,
-//                 name
-
-//             }
-
-//         }
-
-//         return dto
-//     }
-// }
-// export interface GetPostOutputDTO {
-
-//     public getPostOutput(): GetPostOutputDTO {
-
-//     const dto: GetPostOutputDTO = {
-
-//         id: post.getId(),
-//         creatorId: post.getCreator_id(),
-//         content: post.content(),
-//         likes: post.getLikes(),
-//         dislikes: post.getDislikes(),
-//         comment:
-//             creator: {
-//                 id: post.getCreator_id(),
-//                 name: user.getName()
-// }
-//     }
-// }
+}

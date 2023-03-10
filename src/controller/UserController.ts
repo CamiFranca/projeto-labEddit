@@ -1,5 +1,5 @@
 import { UserBusiness } from "../business/UserBusiness"
-import { LoginInputDTO, UserDTO } from "../dtos/User.DTO"
+import { UserDTO } from "../dtos/User.DTO"
 import { BaseError } from "../errors/BaseError"
 import { Request, Response } from "express"
 

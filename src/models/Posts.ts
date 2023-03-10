@@ -1,19 +1,13 @@
 
 
 
-export interface PostModel {
+export interface PostModelBusiness {
     id: string,
     creatorId: string,
     content: string,
     likes: number,
     dislikes: number,
-    comments:number,
-    createdAt: string,
-    updatedAt: string
-    creator: {
-        id: string,
-        name: string
-    }
+    comments: string
 }
 
 export interface PostModelDB {
@@ -22,23 +16,18 @@ export interface PostModelDB {
     content: string,
     likes: number,
     dislikes: number,
-    comments: number,
-    created_at: string,
-    updated_at: string,
+    comments: string
 }
 
 export class Posts {
 
     constructor(
         private id: string,
+        private creatorId: string,
         private content: string,
         private likes: number,
         private dislikes: number,
-        private comments: number,
-        private createdAt: string,
-        private updatedAt: string,
-        private creatorId: string,
-        private creatorName: string,
+        private comments: string,
     ) { }
 
     public getId(): string {
@@ -48,12 +37,12 @@ export class Posts {
     public setId(value: string): void {
         this.id = value
     }
-    public getCreator_id(): string {
-        return this.creatorId
+    public getCreatorId(): string {
+        return this.id
     }
 
-    public setName(value: string): void {
-        this.creatorId = value
+    public setCreatorId(value: string): void {
+        this.id = value
     }
     public getContent(): string {
         return this.content
@@ -78,7 +67,7 @@ export class Posts {
         this.dislikes = value
     }
 
-  
+
     public addLike() {
         this.likes += 1
     }
@@ -95,27 +84,12 @@ export class Posts {
         this.dislikes -= 1
     }
 
-    public getComments(): number {
-        return this.dislikes
+    public getComments(): string {
+        return this.comments
     }
 
-    public setComments(value: number): void {
-        this.dislikes = value
-    }
-
-    public getCreated_at(): string {
-        return this.createdAt
-    }
-
-    public setCreated_at(value: string): void {
-        this.createdAt = value
-    }
-    public getUpdate_at(): string {
-        return this.updatedAt
-    }
-
-    public setUpdate_at(value: string): void {
-        this.updatedAt = value
+    public setComments(value: string): void {
+        this.comments = value
     }
 
     public toDBModel(): PostModelDB {
@@ -125,28 +99,22 @@ export class Posts {
             content: this.content,
             likes: this.likes,
             dislikes: this.dislikes,
-            comments:this.comments,
-            created_at: this.createdAt,
-            updated_at: this.updatedAt
+            comments: this.comments,
+
         }
     }
-    
-    public toBusinessModel(): PostModel {
+
+    public toBusinessModel(): PostModelBusiness {
         return {
             id: this.id,
             creatorId: this.creatorId,
             content: this.content,
             likes: this.likes,
             dislikes: this.dislikes,
-            comments:this.comments,
-            createdAt: this.createdAt,
-            updatedAt: this.updatedAt,
-            creator : {
-                id: this.creatorId,
-                name: this.creatorName
-            }
+            comments: this.comments
+
         }
     }
 
 }
-    
+
