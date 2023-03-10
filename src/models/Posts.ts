@@ -7,7 +7,7 @@ export interface PostModelBusiness {
     content: string,
     likes: number,
     dislikes: number,
-    comments: string
+    comments: number
 }
 
 export interface PostModelDB {
@@ -16,7 +16,7 @@ export interface PostModelDB {
     content: string,
     likes: number,
     dislikes: number,
-    comments: string
+    comments: number
 }
 
 export class Posts {
@@ -27,7 +27,7 @@ export class Posts {
         private content: string,
         private likes: number,
         private dislikes: number,
-        private comments: string,
+        private comments: number,
     ) { }
 
     public getId(): string {
@@ -84,11 +84,11 @@ export class Posts {
         this.dislikes -= 1
     }
 
-    public getComments(): string {
+    public getComments(): number {
         return this.comments
     }
 
-    public setComments(value: string): void {
+    public setComments(value: number): void {
         this.comments = value
     }
 

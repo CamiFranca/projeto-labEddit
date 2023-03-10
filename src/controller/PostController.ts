@@ -7,14 +7,14 @@ export class PostController {
     constructor(
 
         private postBusiness: PostBusiness,
-        private postDTO : PostDTO
+        private postDTO: PostDTO
 
     ) { }
 
-    public getPosts = async (req:Request, res:Response)=>{
+    public getPosts = async (req: Request, res: Response) => {
 
         try {
-            
+
             const input = this.postDTO.getPostsInputDTO(
                 req.headers.authorization
             )
@@ -34,16 +34,15 @@ export class PostController {
     }
 
 
-    public editPost = async (req:Request, res:Response):Promise<void>=>{
+    public createPost = async (req: Request, res: Response) => {
 
         try {
-            const input = this.postDTO.editPostDTO(
-                 req.params.id,
-                 req.headers.authorization,
-                 req.body.content  
+            const input = this.postDTO.CreatePostDTO(
+                req.headers.authorization,
+                req.body.content
             )
-console.log(input)
-            const output = await this.postBusiness.editPost(input)
+
+            await this.postBusiness.createPost(input)
 
             res.status(200).end()
 
@@ -57,4 +56,30 @@ console.log(input)
             }
         }
     }
+
+
+    public editPost = async (req: Request, res: Response) => {
+
+        try {
+            const input = this.postDTO.editPostDTO(
+                req.params.id,
+                req.headers.authorization,
+                req.body.content
+            )
+console.log("controller",input)
+            await this.postBusiness.editPost(input)
+
+            res.status(200).end()
+
+        } catch (error) {
+            console.log(error)
+
+            if (error instanceof BaseError) {
+                res.status(error.statusCode).send(error.message)
+            } else {
+                res.status(500).send("Erro inesperado.")
+            }
+        }
+    }
+
 }
