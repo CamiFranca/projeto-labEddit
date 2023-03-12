@@ -3,16 +3,15 @@ import { CreateOutputPost, DeletePostInputDTO, EditPostInputDTO, GetPostOutputDT
 import { BadRequestError } from "../errors/BadRequestError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { Posts } from "../models/Posts";
-import { HashManager } from "../services/HashManager";
 import { IdGenerator } from "../services/IdGenerator";
 import { TokenManager } from "../services/TokenManager";
+import { USER_ROLES } from "../types";
 
 export class PostBusiness {
     constructor(
         private postDataBase: PostDatabase,
         private idGenerator: IdGenerator,
         private tokenManager: TokenManager,
-        private hashManager: HashManager
     ) { }
 
     public getPost = async (input: GetPostOutputDTO): Promise<{}[]> => {
@@ -35,7 +34,8 @@ export class PostBusiness {
                 post.content,
                 post.likes,
                 post.dislikes,
-                post.comments,
+                post.comments
+             
             )
             return posts.toBusinessModel()
         })
@@ -51,7 +51,6 @@ export class PostBusiness {
                 likes: post.likes,
                 dislikes: post.dislikes,
                 comments: post.comments,
-                creatorName: userDB.nick_name
             }
             UserAndPost.push(styleGetPost)
         }
@@ -161,30 +160,76 @@ export class PostBusiness {
         const searchPostById = await this.postDataBase.findPostById(id)
 
         if (!searchPostById) {
-            throw new BadRequestError("Erro: O id não foi encontrado.")
+
+            throw new NotFoundError("Erro: O id não foi encontrado.")
+
 
         }
 
         const creatorId = tokenValid.id
 
+
+        if (tokenValid.role !== USER_ROLES.ADMIN &&
+            searchPostById.creator_id !== creatorId) {
+            throw new BadRequestError("ERRO: Só o dono da conta pode editar o content.")
+
+        }
+
+        await this.postDataBase.deletePostById(id)
+
+    }
+
+    public likeOrDislike = async (input: LikeOrDislikeOutputDTO): Promise<void> => {
+
+        const { id, token, like } = input
+
+        const tokenValid = this.tokenManager.getPayload(token)
+
+        if (!tokenValid) {
+            throw new BadRequestError("ERRO: O token é inválido.")
+
+        }
+        const postAndCreatorDB = await this.postDataBase.findPostAndUserById(id)
+
+        if (!postAndCreatorDB) {
+            throw new NotFoundError("Erro: O id não foi encontrado.")
+
+        }
+
+        const userId = tokenValid.id
+        const modelLikeForDB = like ? 1 : 0
+        const postId = postAndCreatorDB.id
+
+
+        const formatLikeDislikeDB: LikeOrDislikeDB = {
+            user_id: userId,
+            post_id: postId,
+            like: modelLikeForDB
+        }
+
+        await this.postDataBase.likeOrDislike(formatLikeDislikeDB)
+
+        const post = new Posts(
+            postAndCreatorDB.id,
+            postAndCreatorDB.creator_id,
+            postAndCreatorDB.content,
+            postAndCreatorDB.likes,
+            postAndCreatorDB.dislikes,
+            postAndCreatorDB.comments,
+            // postAndCreatorDB.creator_name
+        )
+
+        like ? post.addLike() : post.addDislike()
+
+        const updatePostDB = post.toDBModel()
+
+        await this.postDataBase.update(id, updatePostDB)
+      
+
         if (searchPostById.creator_id !== creatorId) {
             throw new BadRequestError("ERRO: Só o dono da conta pode editar o content.")
 
         }
-        // const instancePosts = new Posts(
-        //     searchPostById.id,
-        //     searchPostById.creator_id,
-        //     searchPostById.content,
-        //     searchPostById.likes,
-        //     searchPostById.dislikes,
-        //     searchPostById.comments,
-        // )
-
-        // const postDelete = instancePosts.toDBModel()
-
-        await this.postDataBase.deletePostById(id)
-
-
 
     }
 }

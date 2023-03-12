@@ -5,9 +5,11 @@ export enum USER_ROLES {
 
 export interface TokenPayload {
     id: string,
-    nickName: string,
+    nick_name: string,
     role: USER_ROLES
 }
+
+
 
 export interface DeletePost {
     token: string
@@ -46,14 +48,12 @@ export interface CommentsAndItCreatorDB extends CommentsDB {
 }
 export interface CommentsModel {
     id: string,
-    content: string,
+    comments: string,
     likes: number,
     dislikes: number,
-    createdAt: string,
-    updatedAt: string,
     postId: string,
     creator: {
         id: string,
-        name: string
+        nickName: string
     }
 }

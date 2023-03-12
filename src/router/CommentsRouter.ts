@@ -1,20 +1,28 @@
-// import express from "express"
-// import { HashManager } from "../services/HashManager"
-// import { IdGenerator } from "../services/IdGenerator"
-// import { TokenManager } from "../services/TokenManager"
+import express from "express"
+import { CommentsBusiness } from "../business/CommentsBusiness"
+import { CommmentsController } from "../controller/CommentsController"
+import { CommentsDatabase } from "../database/CommentsDatabase"
+import { PostDatabase } from "../database/PostDatabase"
+import { UserDatabase } from "../database/UserDatabase"
+import { HashManager } from "../services/HashManager"
+import { IdGenerator } from "../services/IdGenerator"
+import { TokenManager } from "../services/TokenManager"
 
-// export const commentsRouter = express.Router()
+export const commentsRouter = express.Router()
 
-// const commmentsController = new CommentsController(
-//     new commentsBusiness(
-//         new CommentsDatabase(),
-//         new IdGenerator(),
-//         new TokenManager(),
-//         new HashManager()
-//     ),
- 
-// )
+const commmentsController = new CommmentsController(
+    new CommentsBusiness(
+        new CommentsDatabase(),
+        new IdGenerator(),
+        new TokenManager(),
+        new PostDatabase(),
+        new UserDatabase()
+    )
+    //  new commentsDTO
 
-// commentsRouter.get("/",commmentsController.getAllComments)
+)
+
+commentsRouter.get("/:id", commmentsController.getAllComments)
+commentsRouter.post("/:id", commmentsController.createComments)
 
 

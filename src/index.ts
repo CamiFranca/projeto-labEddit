@@ -3,6 +3,7 @@ import cors from 'cors'
 import dotenv from "dotenv"
 import { userRouter } from './router/UserRouter'
 import { postRouter } from './router/PostRouter'
+import { commentsRouter } from './router/CommentsRouter'
 
 
 dotenv.config()
@@ -35,3 +36,4 @@ app.get("/ping", async (req: Request, res: Response) => {
 
 app.use("/users", userRouter)
 app.use("/posts", postRouter)
+app.use("/comments",commentsRouter)

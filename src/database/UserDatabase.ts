@@ -38,5 +38,9 @@ export class UserDatabase extends BaseDatabase {
         .insert(userDB)
     }
 
-  
+    public getAllUsersComments = async (): Promise<UserModelDB[]> => {
+        const result: UserModelDB[] = await BaseDatabase
+            .connection(UserDatabase.TABLE_USERS)
+        return result
+    }
 }

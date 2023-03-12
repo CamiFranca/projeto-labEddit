@@ -1,6 +1,3 @@
-
-
-
 export interface PostModelBusiness {
     id: string,
     creatorId: string,
@@ -28,7 +25,7 @@ export class Posts {
         private likes: number,
         private dislikes: number,
         private comments: number,
-    ) { }
+     ) { }
 
     public getId(): string {
         return this.id
@@ -72,15 +69,15 @@ export class Posts {
         this.likes += 1
     }
 
-    public deleteLike() {
+    public removeLike() {
         this.likes -= 1
     }
 
-    public addDeslike() {
+    public addDislike() {
         this.dislikes += 1
     }
 
-    public removeDeslike() {
+    public removeDislike() {
         this.dislikes -= 1
     }
 
@@ -91,7 +88,7 @@ export class Posts {
     public setComments(value: number): void {
         this.comments = value
     }
-
+ 
     public toDBModel(): PostModelDB {
         return {
             id: this.id,
@@ -100,7 +97,6 @@ export class Posts {
             likes: this.likes,
             dislikes: this.dislikes,
             comments: this.comments,
-
         }
     }
 

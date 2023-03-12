@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import { PostBusiness } from "../business/PostBusiness";
+import { LikeOrDislikeDTO } from "../dtos/LikeOrDislikeDTO";
 import { PostDTO } from "../dtos/PostDTO";
 import { BaseError } from "../errors/BaseError";
 
@@ -7,7 +8,8 @@ export class PostController {
     constructor(
 
         private postBusiness: PostBusiness,
-        private postDTO: PostDTO
+        private postDTO: PostDTO,
+        private likeOrDislikeDTO: LikeOrDislikeDTO
 
     ) { }
 
@@ -107,4 +109,31 @@ export class PostController {
         }
     }
 
+
+    public likeOrDislike = async (req: Request, res: Response) => {
+
+        try {
+            const input = this.likeOrDislikeDTO.LikeOrDislike(
+                req.params.id,
+                req.headers.authorization,
+                req.body.like
+              
+            )
+
+            await this.postBusiness.likeOrDislike(input)
+
+            res.status(200).end()
+
+        } catch (error) {
+            console.log(error)
+
+            if (error instanceof BaseError) {
+                res.status(error.statusCode).send(error.message)
+            } else {
+                res.status(500).send("Erro inesperado.")
+            }
+        }
+    }
+
+ main
 }

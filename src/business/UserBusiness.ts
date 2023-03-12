@@ -76,7 +76,7 @@ export class UserBusiness {
 
         const payload: TokenPayload = {
             id: newUser.getId(),
-            nickName: newUser.getNickname(),
+            nick_name: newUser.getNickname(),
             role: newUser.getRole()
         }
 
@@ -122,7 +122,7 @@ export class UserBusiness {
 
         const payload: TokenPayload = {
             id: idDB,
-            nickName: nickNameDB,
+            nick_name: nickNameDB,
             role: roleDB
         }
 
