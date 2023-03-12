@@ -49,6 +49,7 @@ export class PostDatabase extends BaseDatabase {
     await BaseDatabase.connection(PostDatabase.TABLE_POSTS)
       .delete()
       .where({ id: id })
+
   }
   public async findPostAndUserById(post_id:string):Promise<postAndCreatorDB | undefined>{
     const result : postAndCreatorDB[] =
@@ -65,6 +66,7 @@ export class PostDatabase extends BaseDatabase {
     .join("users","post.creator_id", "=", "users.id" )
     .where("post.id", post_id)
     return result[0]
+
   }
 
   public async likeOrDislike(formatLikeDislikeDB:LikeOrDislikeDB): Promise<void> {

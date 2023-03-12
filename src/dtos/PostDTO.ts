@@ -46,6 +46,13 @@ export interface EditPostInputDTO {
 
 export interface DeletePostInputDTO {
     id: string,
+
+    token: string
+}
+
+export interface DeletePostOutputDTO {
+    id: string,
+
     token: string
 }
 
