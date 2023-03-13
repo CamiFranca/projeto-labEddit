@@ -98,7 +98,7 @@ export class Comments {
         this.dislikes += 1
     }
 
-    public removeDeslike() {
+    public deleteDeslike() {
         this.dislikes -= 1
     }
 

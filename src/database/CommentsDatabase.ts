@@ -1,17 +1,82 @@
-import { CommentsDB } from "../types";
+import { LikeDislikeComentsDB } from "../dtos/CommentsDTO";
+import { LikeOrDislikeCommentsDB } from "../dtos/LikeOrDislikeDTO";
+// import { LikeOrDislikeDB } from "../dtos/LikeOrDislikeDTO";
+import { CommentsAndItCreatorDB, CommentsDB, COMMENT_LIKE } from "../types";
 import { BaseDatabase } from "./BaseDatabase";
 
 
-export class CommentsDatabase extends BaseDatabase{
-    public static TABLE_COMMENTS ="comments"
+export class CommentsDatabase extends BaseDatabase {
+    public static TABLE_COMMENTS = "comments"
+    public static TABLE_LIKES_DISLIKES_COMMENT = "likes_dislikes_comment"
 
-    public getAllComments = async (id:string):Promise<CommentsDB[]> =>{
+
+    public getAllComments = async (id: string): Promise<CommentsDB[]> => {
 
         return await BaseDatabase.connection(CommentsDatabase.TABLE_COMMENTS)
-        .where({post_id:id})
+            .where({ post_id: id })
     }
     public insert = async (commentsDB: CommentsDB): Promise<void> => {
         await BaseDatabase.connection(CommentsDatabase.TABLE_COMMENTS)
-        .insert(commentsDB)
+            .insert(commentsDB)
+    }
+    public async findCommentsAndUserById(idLikeDislike: string): Promise<CommentsAndItCreatorDB | undefined> {
+        const result: CommentsAndItCreatorDB[] =
+            await BaseDatabase.connection(CommentsDatabase.TABLE_COMMENTS)
+                .select(
+                    "comments.id",
+                    "comments.creator_id",
+                    "comments.post_id",
+                    "comments.comments",
+                    "comments.likes",
+                    "comments.dislikes",
+                    "users.nick_name AS creator_name "
+                )
+                .join("users", "comments.creator_id", "=", "users.id")
+                .where("comments.id", idLikeDislike)
+        return result[0]
+    }
+
+    public searchLikeDislike = async (formatLikeDislikeDB: LikeOrDislikeCommentsDB): Promise<COMMENT_LIKE | null> => {
+        const [likeDislikeDB]: LikeDislikeComentsDB[] = await BaseDatabase
+            .connection(CommentsDatabase.TABLE_LIKES_DISLIKES_COMMENT)
+            .select()
+            .where({
+                user_id: formatLikeDislikeDB.user_id,
+                comment_id: formatLikeDislikeDB.comment_id
+            })
+
+        if (likeDislikeDB) {
+            return likeDislikeDB.like === 1 ? COMMENT_LIKE.ALREADY_LIKED : COMMENT_LIKE.ALREADY_DISLIKED
+        } else {
+            return null
+        }
+    }
+
+    public removeLikeDislike = async (likeDislikeDB: LikeDislikeComentsDB): Promise<void> => {
+        await BaseDatabase.connection(CommentsDatabase.TABLE_LIKES_DISLIKES_COMMENT)
+            .delete()
+            .where({
+                user_id: likeDislikeDB.user_id,
+                comment_id: likeDislikeDB.comment_id
+            })
+    }
+
+    public updateLikeDislike = async (likeDislikeDB: LikeDislikeComentsDB): Promise<void> => {
+        await BaseDatabase.connection(CommentsDatabase.TABLE_LIKES_DISLIKES_COMMENT)
+            .update(likeDislikeDB)
+            .where({
+                user_id: likeDislikeDB.user_id,
+                comment_id: likeDislikeDB.comment_id
+            })
+    }
+    public update = async (id: string, commentDB: CommentsDB): Promise<void> => {
+        await BaseDatabase.connection(CommentsDatabase.TABLE_COMMENTS)
+            .update(commentDB)
+            .where({ id })
+    }
+
+    public commentsLikeOrDislike = async (likeDislike: LikeDislikeComentsDB): Promise<void> => {
+        await BaseDatabase.connection(CommentsDatabase.TABLE_LIKES_DISLIKES_COMMENT)
+        .insert(likeDislike)
     }
 }

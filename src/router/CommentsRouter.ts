@@ -24,5 +24,5 @@ const commmentsController = new CommmentsController(
 
 commentsRouter.get("/:id", commmentsController.getAllComments)
 commentsRouter.post("/:id", commmentsController.createComments)
-
+commentsRouter.put("/:id/like", commmentsController.likeOrDislikeComments)
 

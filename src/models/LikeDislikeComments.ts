@@ -1,7 +1,9 @@
-export class LikeDislikePost {
+
+
+export class LikeDislikeComment {
     constructor(
         private user_id:string, 
-        private post_id:string, 
+        private comment_id:string, 
         private like:number
     ){}
 
@@ -14,11 +16,11 @@ export class LikeDislikePost {
     }
 
     public getComment_id(): string {
-        return this.post_id
+        return this.comment_id
     }
 
     public setComment_id(value: string): void {
-        this.post_id = value
+        this.comment_id = value
     }
 
     public getLike(): number {

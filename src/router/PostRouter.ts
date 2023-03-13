@@ -4,7 +4,6 @@ import { PostController } from "../controller/PostController"
 import { PostDatabase } from "../database/PostDatabase"
 import { LikeOrDislikeDTO } from "../dtos/LikeOrDislikeDTO"
 import { PostDTO } from "../dtos/PostDTO"
-import { HashManager } from "../services/HashManager"
 import { IdGenerator } from "../services/IdGenerator"
 import { TokenManager } from "../services/TokenManager"
 
@@ -25,5 +24,3 @@ postRouter.post("/posts", postController.createPost)
 postRouter.put("/:id", postController.editPost)
 postRouter.delete("/:id", postController.deletePost)
 postRouter.put("/:id/like", postController.likeOrDislike)
-
-

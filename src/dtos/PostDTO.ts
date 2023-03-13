@@ -46,13 +46,6 @@ export interface EditPostInputDTO {
 
 export interface DeletePostInputDTO {
     id: string,
-
-    token: string
-}
-
-export interface DeletePostOutputDTO {
-    id: string,
-
     token: string
 }
 
@@ -67,10 +60,15 @@ export interface postAndCreatorDB {
     content: string,
     likes: number,
     dislikes: number,
-    comments:number
+    comments: number
     creator_name: string
 }
 
+export interface LikeOrDislikePostDB {
+    user_id: string,
+    post_id: string
+    like: number
+}
 export class PostDTO {
 
     public getPostsInputDTO(

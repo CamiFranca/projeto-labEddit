@@ -11,9 +11,9 @@ export interface LikeOrDislikeOutputDTO{
     like:boolean
 }
 
-export interface LikeOrDislikeDB{
+export interface LikeOrDislikeCommentsDB{
     user_id: string, 
-    post_id: string, 
+    comment_id: string, 
     like: number
 }
 export class LikeOrDislikeDTO {
@@ -48,4 +48,4 @@ export class LikeOrDislikeDTO {
 
         return dto
     }
-}   
+} 

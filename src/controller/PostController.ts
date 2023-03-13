@@ -109,7 +109,6 @@ export class PostController {
         }
     }
 
-
     public likeOrDislike = async (req: Request, res: Response) => {
 
         try {
@@ -135,5 +134,4 @@ export class PostController {
         }
     }
 
- main
 }

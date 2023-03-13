@@ -1,5 +1,6 @@
 import { PostDatabase } from "../database/PostDatabase";
-import { CreateOutputPost, DeletePostInputDTO, EditPostInputDTO, GetPostOutputDTO } from "../dtos/PostDTO";
+import {  LikeOrDislikeOutputDTO } from "../dtos/LikeOrDislikeDTO";
+import { CreateOutputPost, DeletePostInputDTO, EditPostInputDTO, GetPostOutputDTO, LikeOrDislikePostDB } from "../dtos/PostDTO";
 import { BadRequestError } from "../errors/BadRequestError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { Posts } from "../models/Posts";
@@ -160,14 +161,11 @@ export class PostBusiness {
         const searchPostById = await this.postDataBase.findPostById(id)
 
         if (!searchPostById) {
-
             throw new NotFoundError("Erro: O id não foi encontrado.")
-
 
         }
 
         const creatorId = tokenValid.id
-
 
         if (tokenValid.role !== USER_ROLES.ADMIN &&
             searchPostById.creator_id !== creatorId) {
@@ -201,7 +199,7 @@ export class PostBusiness {
         const postId = postAndCreatorDB.id
 
 
-        const formatLikeDislikeDB: LikeOrDislikeDB = {
+        const formatLikeDislikeDB: LikeOrDislikePostDB= {
             user_id: userId,
             post_id: postId,
             like: modelLikeForDB
@@ -225,11 +223,5 @@ export class PostBusiness {
 
         await this.postDataBase.update(id, updatePostDB)
       
-
-        if (searchPostById.creator_id !== creatorId) {
-            throw new BadRequestError("ERRO: Só o dono da conta pode editar o content.")
-
-        }
-
     }
 }

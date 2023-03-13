@@ -9,8 +9,6 @@ export interface TokenPayload {
     role: USER_ROLES
 }
 
-
-
 export interface DeletePost {
     token: string
 }
@@ -56,4 +54,8 @@ export interface CommentsModel {
         id: string,
         nickName: string
     }
+}
+export enum COMMENT_LIKE {
+    ALREADY_LIKED = "jÁ CURTI",
+    ALREADY_DISLIKED = "JÁ DISCURTI"
 }

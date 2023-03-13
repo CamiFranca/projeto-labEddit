@@ -1,4 +1,4 @@
-import { UserModelBusiness, UserModelDB } from "../models/Users";
+import { UserModelDB } from "../models/Users";
 import { BaseDatabase } from "./BaseDatabase";
 
 export class UserDatabase extends BaseDatabase {
