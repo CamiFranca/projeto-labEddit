@@ -22,7 +22,7 @@ const commmentsController = new CommmentsController(
 
 )
 
-commentsRouter.get("/:id", commmentsController.getAllComments)
+commentsRouter.get("/post/:id", commmentsController.getCommentsByPostId)
 commentsRouter.post("/:id", commmentsController.createComments)
 commentsRouter.put("/:id/like", commmentsController.likeOrDislikeComments)
 

@@ -11,15 +11,15 @@ export class CommmentsController {
 
     ) { }
 
-    public getAllComments = async (req: Request, res: Response) => {
+    public getCommentsByPostId = async (req: Request, res: Response) => {
 
         try {
             const input: GetCommentInputDTO = {
-                post_id: req.params.id,
+                postId: req.params.id,
                 token: req.headers.authorization
             }
  
-            const output = await this.commentsBusiness.getAllComments(input)
+            const output = await this.commentsBusiness.getCommentsByPostId(input)
 
             res.status(200).send(output)
 
@@ -38,7 +38,7 @@ export class CommmentsController {
 
         try {
             const input: CreateCommentsInputDTO = {
-                post_id: req.params.id,
+                postId: req.params.id,
                 token: req.headers.authorization,
                 comments : req.body.comments
             }

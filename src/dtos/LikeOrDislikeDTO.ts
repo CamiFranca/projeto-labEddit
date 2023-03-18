@@ -12,8 +12,8 @@ export interface LikeOrDislikeOutputDTO{
 }
 
 export interface LikeOrDislikeCommentsDB{
-    user_id: string, 
-    comment_id: string, 
+    userId: string, 
+    commentId: string, 
     like: number
 }
 export class LikeOrDislikeDTO {

@@ -133,7 +133,7 @@ SELECT * FROM users;
 
 SELECT * FROM posts;
 
-SELECT * FROM likes_dislikes;
+SELECT * FROM comments;
 
 DROP TABLE users;
  
