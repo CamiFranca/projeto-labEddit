@@ -2,6 +2,7 @@ import { CommentsDatabase } from "../database/CommentsDatabase";
 import { PostDatabase } from "../database/PostDatabase";
 import { UserDatabase } from "../database/UserDatabase";
 import { CreateCommentsInputDTO, GetCommentInputDTO, GetCommentsOutputDTO, LikeDislikeComentsDB, LikedislikeCommentInputDTO } from "../dtos/CommentsDTO";
+import { LikeOrDislikeCommentsDB } from "../dtos/LikeOrDislikeDTO";
 import { BadRequestError } from "../errors/BadRequestError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { Comments } from "../models/Comments";
@@ -19,9 +20,9 @@ export class CommentsBusiness {
 
     ) { }
 
-    public getAllComments = async (input: GetCommentInputDTO): Promise<GetCommentsOutputDTO> => {
+    public getCommentsByPostId = async (input: GetCommentInputDTO): Promise<{}[]> => {
 
-        const { post_id, token } = input
+        const { postId, token } = input
         //criar o dto para verificar a chegada do input no tipo undefined
 
         if (token === undefined) {
@@ -35,41 +36,31 @@ export class CommentsBusiness {
 
         }
 
-        const commentsByIdDB = await this.commentsDataBase.getAllComments(post_id)
+        const commentsByPostIdDB = await this.commentsDataBase.getCommentsByPostId(postId)
 
-        const getUsers = await this.userDatabase.getAllUsersComments()
+        let userWithComments : {}[] = []
 
-        const instanceComments = commentsByIdDB.map((comment) => {
-            const findUsers = getUsers.find((user) => user.id === comment.creator_id)
-            if (!findUsers) {
-                throw new NotFoundError("ERRO: usuário não encontrado.")
+        for (const comment of commentsByPostIdDB) {
+            const userDB = await this.commentsDataBase.getUserById(comment.creator_id)
+            const styleGetComment = {
+                id: comment.id,
+                creatorNickName: userDB.nick_name,
+                comment: comment.comments,
+                likes: comment.likes,
+                dislikes: comment.dislikes,
+               
             }
+            userWithComments.push(styleGetComment)
+        }
 
-            const userRoleComment: TokenPayload = {
-                id: findUsers.id,
-                nick_name: findUsers.nick_name,
-                role: findUsers.role
-            }
-            const comments = new Comments(
-                comment.id,
-                comment.post_id,
-                comment.comments,
-                comment.likes,
-                comment.dislikes,
-                userRoleComment
-            )
-            return comments.toBusinessModel()
-        })
+        return userWithComments
 
-        const output: GetCommentsOutputDTO = instanceComments
-
-        return output
-
+        
     }
 
     public createComments = async (input: CreateCommentsInputDTO): Promise<void> => {
 
-        const { post_id, token, comments } = input
+        const { postId, token, comments } = input
         //criar o dto para verificar a chegada do input no tipo undefined
 
         if (token === undefined) {
@@ -86,7 +77,7 @@ export class CommentsBusiness {
             throw new BadRequestError("ERRO: Comments precisa ser string.")
 
         }
-        const findPostByIdDB = await this.postDatabase.findPostById(post_id)
+        const findPostByIdDB = await this.postDatabase.findPostById(postId)
 
         if (!findPostByIdDB) {
             throw new BadRequestError("ERRO:Post não encontrado.")
@@ -96,7 +87,7 @@ export class CommentsBusiness {
 
         const instanceComments = new Comments(
             id,
-            post_id,
+            postId,
             comments,
             0,
             0,
@@ -146,9 +137,9 @@ export class CommentsBusiness {
         const modelLikeForDB = like ? 1 : 0
         const postId = commentsAndCreatorDB.id
 
-        const formatLikeDislikeDB: LikeDislikeComentsDB= {
-            user_id: creatorId,
-            comment_id: commentsAndCreatorDB.id,
+        const formatLikeDislikeDB: LikeOrDislikeCommentsDB= {
+            userId: creatorId,
+            commentId: commentsAndCreatorDB.id,
             like: modelLikeForDB
         }
 

@@ -29,7 +29,6 @@ export class PostDatabase extends BaseDatabase {
   }
 
   public async findPostById(id: string): Promise<PostDB | undefined> {
-    console.log("database", id)
     const result: PostDB[] = await BaseDatabase
       .connection(PostDatabase.TABLE_POSTS)
       .select()

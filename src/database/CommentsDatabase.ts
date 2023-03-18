@@ -1,5 +1,6 @@
 import { LikeDislikeComentsDB } from "../dtos/CommentsDTO";
 import { LikeOrDislikeCommentsDB } from "../dtos/LikeOrDislikeDTO";
+import { UserModelDB } from "../models/Users";
 // import { LikeOrDislikeDB } from "../dtos/LikeOrDislikeDTO";
 import { CommentsAndItCreatorDB, CommentsDB, COMMENT_LIKE } from "../types";
 import { BaseDatabase } from "./BaseDatabase";
@@ -8,12 +9,15 @@ import { BaseDatabase } from "./BaseDatabase";
 export class CommentsDatabase extends BaseDatabase {
     public static TABLE_COMMENTS = "comments"
     public static TABLE_LIKES_DISLIKES_COMMENT = "likes_dislikes_comment"
+    public static TABLE_USERS = "users"
 
 
-    public getAllComments = async (id: string): Promise<CommentsDB[]> => {
 
-        return await BaseDatabase.connection(CommentsDatabase.TABLE_COMMENTS)
+    public getCommentsByPostId = async (id: string): Promise<CommentsDB[]> => {
+
+        const result =await BaseDatabase.connection(CommentsDatabase.TABLE_COMMENTS)
             .where({ post_id: id })
+            return result
     }
     public insert = async (commentsDB: CommentsDB): Promise<void> => {
         await BaseDatabase.connection(CommentsDatabase.TABLE_COMMENTS)
@@ -36,13 +40,21 @@ export class CommentsDatabase extends BaseDatabase {
         return result[0]
     }
 
+    public async getUserById(id: string): Promise<UserModelDB> {
+        const result: UserModelDB[] = await BaseDatabase
+          .connection(CommentsDatabase.TABLE_USERS)
+          .select()
+          .where({ id })
+        return result[0]
+      }
+
     public searchLikeDislike = async (formatLikeDislikeDB: LikeOrDislikeCommentsDB): Promise<COMMENT_LIKE | null> => {
         const [likeDislikeDB]: LikeDislikeComentsDB[] = await BaseDatabase
             .connection(CommentsDatabase.TABLE_LIKES_DISLIKES_COMMENT)
             .select()
             .where({
-                user_id: formatLikeDislikeDB.user_id,
-                comment_id: formatLikeDislikeDB.comment_id
+                user_id: formatLikeDislikeDB.userId,
+                comment_id: formatLikeDislikeDB.commentId
             })
 
         if (likeDislikeDB) {
@@ -56,8 +68,8 @@ export class CommentsDatabase extends BaseDatabase {
         await BaseDatabase.connection(CommentsDatabase.TABLE_LIKES_DISLIKES_COMMENT)
             .delete()
             .where({
-                user_id: likeDislikeDB.user_id,
-                comment_id: likeDislikeDB.comment_id
+                user_id: likeDislikeDB.userId,
+                comment_id: likeDislikeDB.commentId
             })
     }
 
@@ -65,8 +77,8 @@ export class CommentsDatabase extends BaseDatabase {
         await BaseDatabase.connection(CommentsDatabase.TABLE_LIKES_DISLIKES_COMMENT)
             .update(likeDislikeDB)
             .where({
-                user_id: likeDislikeDB.user_id,
-                comment_id: likeDislikeDB.comment_id
+                user_id: likeDislikeDB.userId,
+                comment_id: likeDislikeDB.commentId
             })
     }
     public update = async (id: string, commentDB: CommentsDB): Promise<void> => {

@@ -1,14 +1,14 @@
 import { CommentsModel } from "../types"
 
 export interface GetCommentInputDTO {
-    post_id:string 
+    postId:string 
     token: string | undefined, 
 }
 
 export type GetCommentsOutputDTO = CommentsModel[]
 
 export interface CreateCommentsInputDTO {
-    post_id: string,
+    postId: string,
     token: string |undefined,
     comments: unknown
 }
@@ -30,7 +30,7 @@ export interface LikedislikeCommentInputDTO {
 }
 
 export interface LikeDislikeComentsDB{
-    user_id: string,
-    comment_id:string,
+    userId: string,
+    commentId:string,
     like:number
 }

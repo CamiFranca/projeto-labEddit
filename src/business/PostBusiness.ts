@@ -47,15 +47,15 @@ export class PostBusiness {
             const userDB = await this.postDataBase.getUserById(post.creatorId)
             const styleGetPost = {
                 id: post.id,
-                creatorId: post.creatorId,
+                creatorNickName: userDB.nick_name,
                 content: post.content,
                 likes: post.likes,
                 dislikes: post.dislikes,
-                comments: post.comments,
+                comments: post.comments
+                
             }
             UserAndPost.push(styleGetPost)
         }
-
 
         return UserAndPost
 

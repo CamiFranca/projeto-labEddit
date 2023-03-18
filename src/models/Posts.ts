@@ -24,7 +24,7 @@ export class Posts {
         private content: string,
         private likes: number,
         private dislikes: number,
-        private comments: number,
+        private comments: number
      ) { }
 
     public getId(): string {
