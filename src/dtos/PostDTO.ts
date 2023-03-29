@@ -24,6 +24,11 @@ export interface GetPostOutputDTO {
     token: string
 }
 
+export interface getPostByIdInputDTO{
+    id: string,
+    token: string | undefined
+}
+
 // export interface PostWithUserDTO extends PostDB {
 //     name: string
 

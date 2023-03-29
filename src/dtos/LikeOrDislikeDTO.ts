@@ -12,10 +12,12 @@ export interface LikeOrDislikeOutputDTO{
 }
 
 export interface LikeOrDislikeCommentsDB{
-    userId: string, 
-    commentId: string, 
+    user_id: string, 
+    comment_id: string, 
     like: number
-}
+ }
+
+ 
 export class LikeOrDislikeDTO {
 
     public LikeOrDislike(
@@ -24,21 +26,21 @@ export class LikeOrDislikeDTO {
         like: boolean | undefined
 
     ): LikeOrDislikeInputDTO {
-
+        console.log(like,token, id)
         if (typeof id !== "string") {
-            throw new BadRequestError("Erro: O content precisa ser string.")
+            throw new BadRequestError("Erro: O id precisa ser string.")
         }
         if (!token) {
             throw new BadRequestError("Erro: É preciso enviar um token")
         }
         if (typeof token !== "string") {
-            throw new BadRequestError("Erro: O content precisa ser string.")
+            throw new BadRequestError("Erro: O token precisa ser string.")
         }
-        if (!like) {
-            throw new BadRequestError("Erro: É preciso enviar um token")
+        if (like === undefined) {
+            throw new BadRequestError("Erro: É preciso enviar um like ou dislike")
         }
         if (typeof like !== "boolean") {
-            throw new BadRequestError("Erro: O content precisa ser string.")
+            throw new BadRequestError("Erro: O token precisa ser boolean.")
         }
         const dto: LikeOrDislikeInputDTO= {
             id,

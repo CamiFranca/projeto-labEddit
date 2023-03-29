@@ -32,13 +32,13 @@ export class UserController {
     public signup = async (req: Request, res: Response) => {
 
         try {
-
             const input = this.userDTO.SignupDTO(
                 req.body.nickName,
                 req.body.email,
                 req.body.password
 
             )
+
             const output = await this.userBusiness.signup(input)
 
             res.status(201).send(output)
