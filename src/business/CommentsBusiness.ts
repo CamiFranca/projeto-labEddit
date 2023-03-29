@@ -1,7 +1,7 @@
 import { CommentsDatabase } from "../database/CommentsDatabase";
 import { PostDatabase } from "../database/PostDatabase";
 import { UserDatabase } from "../database/UserDatabase";
-import { CreateCommentsInputDTO, GetCommentInputDTO, GetCommentsOutputDTO, LikeDislikeComentsDB, LikedislikeCommentInputDTO } from "../dtos/CommentsDTO";
+import { CreateCommentsInputDTO, GetCommentInputDTO, LikedislikeCommentInputDTO } from "../dtos/CommentsDTO";
 import { LikeOrDislikeCommentsDB } from "../dtos/LikeOrDislikeDTO";
 import { BadRequestError } from "../errors/BadRequestError";
 import { NotFoundError } from "../errors/NotFoundError";
@@ -23,6 +23,7 @@ export class CommentsBusiness {
     public getCommentsByPostId = async (input: GetCommentInputDTO): Promise<{}[]> => {
 
         const { postId, token } = input
+        console.log("business",input)
         //criar o dto para verificar a chegada do input no tipo undefined
 
         if (token === undefined) {
@@ -52,7 +53,6 @@ export class CommentsBusiness {
             }
             userWithComments.push(styleGetComment)
         }
-
         return userWithComments
 
         
@@ -62,7 +62,6 @@ export class CommentsBusiness {
 
         const { postId, token, comments } = input
         //criar o dto para verificar a chegada do input no tipo undefined
-
         if (token === undefined) {
             throw new BadRequestError("ERRO: É preciso enviar um token.")
         }
@@ -135,11 +134,11 @@ export class CommentsBusiness {
 
         const creatorId = tokenValid.id
         const modelLikeForDB = like ? 1 : 0
-        const postId = commentsAndCreatorDB.id
+        const commentIdDB = commentsAndCreatorDB.id
 
         const formatLikeDislikeDB: LikeOrDislikeCommentsDB= {
-            userId: creatorId,
-            commentId: commentsAndCreatorDB.id,
+            user_id: creatorId,
+            comment_id: commentIdDB,
             like: modelLikeForDB
         }
 

@@ -42,7 +42,8 @@ export class CommmentsController {
                 token: req.headers.authorization,
                 comments : req.body.comments
             }
- 
+            console.log("CONTROLLER",input)
+
             const output = await this.commentsBusiness.createComments(input)
 
             res.status(200).send(output)

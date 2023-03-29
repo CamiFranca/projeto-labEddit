@@ -35,11 +35,11 @@ export class Posts {
         this.id = value
     }
     public getCreatorId(): string {
-        return this.id
+        return this.creatorId
     }
 
     public setCreatorId(value: string): void {
-        this.id = value
+        this.creatorId = value
     }
     public getContent(): string {
         return this.content

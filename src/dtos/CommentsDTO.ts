@@ -30,7 +30,7 @@ export interface LikedislikeCommentInputDTO {
 }
 
 export interface LikeDislikeComentsDB{
-    userId: string,
-    commentId:string,
+    user_id: string,
+    comment_id:string,
     like:number
 }

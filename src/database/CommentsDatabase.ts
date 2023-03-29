@@ -14,10 +14,13 @@ export class CommentsDatabase extends BaseDatabase {
 
 
     public getCommentsByPostId = async (id: string): Promise<CommentsDB[]> => {
-
-        const result =await BaseDatabase.connection(CommentsDatabase.TABLE_COMMENTS)
+        console.log(id, "DATABASE ID")
+        const result = await BaseDatabase.connection(CommentsDatabase.TABLE_COMMENTS)
             .where({ post_id: id })
+            console.log(result,"DATABASE")
+
             return result
+            
     }
     public insert = async (commentsDB: CommentsDB): Promise<void> => {
         await BaseDatabase.connection(CommentsDatabase.TABLE_COMMENTS)
@@ -53,8 +56,8 @@ export class CommentsDatabase extends BaseDatabase {
             .connection(CommentsDatabase.TABLE_LIKES_DISLIKES_COMMENT)
             .select()
             .where({
-                user_id: formatLikeDislikeDB.userId,
-                comment_id: formatLikeDislikeDB.commentId
+                user_id: formatLikeDislikeDB.user_id,
+                comment_id: formatLikeDislikeDB.comment_id
             })
 
         if (likeDislikeDB) {
@@ -68,8 +71,8 @@ export class CommentsDatabase extends BaseDatabase {
         await BaseDatabase.connection(CommentsDatabase.TABLE_LIKES_DISLIKES_COMMENT)
             .delete()
             .where({
-                user_id: likeDislikeDB.userId,
-                comment_id: likeDislikeDB.commentId
+                user_id: likeDislikeDB.user_id,
+                comment_id: likeDislikeDB.comment_id
             })
     }
 
@@ -77,8 +80,8 @@ export class CommentsDatabase extends BaseDatabase {
         await BaseDatabase.connection(CommentsDatabase.TABLE_LIKES_DISLIKES_COMMENT)
             .update(likeDislikeDB)
             .where({
-                user_id: likeDislikeDB.userId,
-                comment_id: likeDislikeDB.commentId
+                user_id: likeDislikeDB.user_id,
+                comment_id: likeDislikeDB.comment_id
             })
     }
     public update = async (id: string, commentDB: CommentsDB): Promise<void> => {

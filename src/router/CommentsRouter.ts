@@ -4,7 +4,6 @@ import { CommmentsController } from "../controller/CommentsController"
 import { CommentsDatabase } from "../database/CommentsDatabase"
 import { PostDatabase } from "../database/PostDatabase"
 import { UserDatabase } from "../database/UserDatabase"
-import { HashManager } from "../services/HashManager"
 import { IdGenerator } from "../services/IdGenerator"
 import { TokenManager } from "../services/TokenManager"
 

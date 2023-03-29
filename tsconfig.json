@@ -10,5 +10,6 @@
       "esModuleInterop": true,
       "noEmitOnError": true,
       "strict": true
-  }
+  },
+  "exclude": ["./tests/*"] // faz o TS ignorar a pasta tests (pq é o Jest que cuida dela)
 }

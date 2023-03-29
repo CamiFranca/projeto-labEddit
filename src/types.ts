@@ -55,7 +55,13 @@ export interface CommentsModel {
         nickName: string
     }
 }
+export enum POST_LIKE {
+    ALREADY_LIKED = "jÁ CURTI",
+    ALREADY_DISLIKED = "JÁ DISCURTI"
+}
+
 export enum COMMENT_LIKE {
     ALREADY_LIKED = "jÁ CURTI",
     ALREADY_DISLIKED = "JÁ DISCURTI"
 }
+

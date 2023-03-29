@@ -32,13 +32,14 @@ export class UserBusiness {
 
         return instaceUser
     }
+
+    
     public signup = async (input: SignupInputDTO): Promise<SignupOutput> => {
         const {
             nickName,
             email,
             password
         } = input
-
 
         if (nickName.length < 2) {
             throw new BadRequestError("'name' deve possuir pelo menos 2 caracteres")
@@ -135,3 +136,4 @@ export class UserBusiness {
         return output
     }
 }
+// export default UserBusiness
