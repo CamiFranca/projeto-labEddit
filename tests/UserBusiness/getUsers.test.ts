@@ -18,7 +18,7 @@ describe("getUsers", () => {
 
         expect(response).toContainEqual({
             id: "id-mock",
-            name: "Normal Mock",
+            nickName: "Normal Mock",
             email: "normal@email.com",
             password: "hash-bananinha",
             role: USER_ROLES.NORMAL

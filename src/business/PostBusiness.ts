@@ -79,11 +79,11 @@ export class PostBusiness {
 
         const savePostsbyIdDB = await this.postDataBase.getPostById(id)
 
-        if (typeof savePostsbyIdDB === null) {
+        if (!savePostsbyIdDB) {
             throw new BadRequestError("ERRO: O id não existe.")
 
         }
-
+                
         const instancePost = new Posts(
             savePostsbyIdDB[0].id,
             savePostsbyIdDB[0].creator_id,
