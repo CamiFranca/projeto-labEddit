@@ -16,7 +16,7 @@ export class PostDatabase extends BaseDatabase {
     return result
   }
 
-  public async getPostById(id: string): Promise<PostDB[]> {
+  public async getPostById(id: string): Promise<PostDB[]| undefined> {
     const result: PostDB[] = await BaseDatabase
       .connection(PostDatabase.TABLE_POSTS)
       .where({ id: id })
@@ -73,9 +73,7 @@ export class PostDatabase extends BaseDatabase {
     return result[0]
   }
 
-  public findLikeDislike = async (
-    likeDislikeDBToFind: LikeOrDislikePostDB
-  ): Promise<POST_LIKE | null> => {
+  public findLikeDislike = async (likeDislikeDBToFind: LikeOrDislikePostDB): Promise<POST_LIKE | null> => {
     const [likeDislikeDB]: LikeOrDislikePostDB[] = await BaseDatabase
       .connection(PostDatabase.TABLE_LIKES_DISLIKES_POST)
       .select()
@@ -94,9 +92,7 @@ export class PostDatabase extends BaseDatabase {
     }
   }
 
-  public updateLikeDislike = async (
-    likeDislikeDB: LikeOrDislikePostDB
-  ) => {
+  public updateLikeDislike = async (likeDislikeDB: LikeOrDislikePostDB) => {
     await BaseDatabase.connection(PostDatabase.TABLE_LIKES_DISLIKES_POST)
       .update(likeDislikeDB)
       .where({
@@ -105,9 +101,7 @@ export class PostDatabase extends BaseDatabase {
       })
   }
 
-  public removeLikeDislike = async (
-    likeDislikeDB: LikeOrDislikePostDB
-  ): Promise<void> => {
+  public removeLikeDislike = async ( likeDislikeDB: LikeOrDislikePostDB): Promise<void> => {
     await BaseDatabase.connection(PostDatabase.TABLE_LIKES_DISLIKES_POST)
       .delete()
       .where({
@@ -116,9 +110,7 @@ export class PostDatabase extends BaseDatabase {
       })
   }
 
-  public likeOrDislikePost = async (
-    likeDislike: LikeOrDislikePostDB
-  ): Promise<void> => {
+  public likeOrDislikePost = async (likeDislike: LikeOrDislikePostDB): Promise<void> => {
     await BaseDatabase.connection(PostDatabase.TABLE_LIKES_DISLIKES_POST)
       .insert(likeDislike)
   }
