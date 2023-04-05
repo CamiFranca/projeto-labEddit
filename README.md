@@ -1,5 +1,5 @@
 # projeto-labEddit Full stack
-## O Labeddit é uma rede social com o objetivo de promover a conexão e interação entre pessoas. Quem se cadastrar no aplicativo poderá criar e curtir e comentar publicações.
+### O Labeddit é uma rede social com o objetivo de promover a conexão e interação entre pessoas. Quem se cadastrar no aplicativo poderá criar, curtir e comentar publicações.
 
 #### Desenvolvido no Bootcamp da Labenu com o proposito de unir todos os conhecimentos de front e back-end.
 
