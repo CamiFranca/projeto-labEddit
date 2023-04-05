@@ -15,7 +15,6 @@ const commmentsController = new CommmentsController(
         new IdGenerator(),
         new TokenManager(),
         new PostDatabase(),
-        new UserDatabase()
     )
     //  new commentsDTO
 

@@ -24,7 +24,7 @@ export interface DeleteCommentInputDTO {
 }
 
 export interface LikedislikeCommentInputDTO {
-    idLikeDislike: string,
+    idLikeDislike: string | undefined,
     token: string | undefined,
     like: unknown
 }

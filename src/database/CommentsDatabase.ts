@@ -13,14 +13,11 @@ export class CommentsDatabase extends BaseDatabase {
 
 
 
-    public getCommentsByPostId = async (id: string): Promise<CommentsDB[]> => {
-        console.log(id, "DATABASE ID")
+    public getCommentsByPostId = async (id: string): Promise<CommentsDB[] | undefined> => {
         const result = await BaseDatabase.connection(CommentsDatabase.TABLE_COMMENTS)
-            .where({ post_id: id })
-            console.log(result,"DATABASE")
+        .where({ post_id: id })
+        return result
 
-            return result
-            
     }
     public insert = async (commentsDB: CommentsDB): Promise<void> => {
         await BaseDatabase.connection(CommentsDatabase.TABLE_COMMENTS)
@@ -45,11 +42,11 @@ export class CommentsDatabase extends BaseDatabase {
 
     public async getUserById(id: string): Promise<UserModelDB> {
         const result: UserModelDB[] = await BaseDatabase
-          .connection(CommentsDatabase.TABLE_USERS)
-          .select()
-          .where({ id })
+            .connection(CommentsDatabase.TABLE_USERS)
+            .select()
+            .where({ id })
         return result[0]
-      }
+    }
 
     public searchLikeDislike = async (formatLikeDislikeDB: LikeOrDislikeCommentsDB): Promise<COMMENT_LIKE | null> => {
         const [likeDislikeDB]: LikeDislikeComentsDB[] = await BaseDatabase
@@ -92,6 +89,6 @@ export class CommentsDatabase extends BaseDatabase {
 
     public commentsLikeOrDislike = async (likeDislike: LikeDislikeComentsDB): Promise<void> => {
         await BaseDatabase.connection(CommentsDatabase.TABLE_LIKES_DISLIKES_COMMENT)
-        .insert(likeDislike)
+            .insert(likeDislike)
     }
 }

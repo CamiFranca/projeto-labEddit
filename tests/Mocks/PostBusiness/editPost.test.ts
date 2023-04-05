@@ -73,7 +73,7 @@ describe("editPost",()=>{
             const input: EditPostInputDTO = {
                 id:"id-mock-post",
                 token:"token-mock-normal",
-                content:" "
+                content: " "
             }
 
 

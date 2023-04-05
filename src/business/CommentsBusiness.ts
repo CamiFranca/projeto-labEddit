@@ -1,6 +1,5 @@
 import { CommentsDatabase } from "../database/CommentsDatabase";
 import { PostDatabase } from "../database/PostDatabase";
-import { UserDatabase } from "../database/UserDatabase";
 import { CreateCommentsInputDTO, GetCommentInputDTO, LikedislikeCommentInputDTO } from "../dtos/CommentsDTO";
 import { LikeOrDislikeCommentsDB } from "../dtos/LikeOrDislikeDTO";
 import { BadRequestError } from "../errors/BadRequestError";
@@ -16,15 +15,12 @@ export class CommentsBusiness {
         private idGenerator: IdGenerator,
         private tokenManager: TokenManager,
         private postDatabase: PostDatabase,
-        private userDatabase: UserDatabase,
 
     ) { }
 
     public getCommentsByPostId = async (input: GetCommentInputDTO): Promise<{}[]> => {
 
         const { postId, token } = input
-        console.log("business",input)
-        //criar o dto para verificar a chegada do input no tipo undefined
 
         if (token === undefined) {
             throw new BadRequestError("ERRO: É preciso enviar um token.")
@@ -38,6 +34,11 @@ export class CommentsBusiness {
         }
 
         const commentsByPostIdDB = await this.commentsDataBase.getCommentsByPostId(postId)
+
+        if(commentsByPostIdDB === undefined){
+            throw new BadRequestError("ERRO: O id não foi encontrado.")
+
+        }
 
         let userWithComments : {}[] = []
 
@@ -105,7 +106,7 @@ export class CommentsBusiness {
         const { idLikeDislike, token, like } = input
 
         if (token === undefined) {
-            throw new BadRequestError("ERRO: token não existe")
+            throw new BadRequestError("ERRO: O token não existe")
         }
 
         if (typeof token !== "string") {
@@ -116,13 +117,16 @@ export class CommentsBusiness {
         }
 
         if (typeof like !== "boolean") {
-            throw new BadRequestError("ERRO: token precisa ser boolean.")
+            throw new BadRequestError("ERRO: like precisa ser boolean.")
+        }
+        if (idLikeDislike === undefined) {
+            throw new BadRequestError("ERRO: envie um id")
         }
 
         const tokenValid = this.tokenManager.getPayload(token)
 
         if (!tokenValid) {
-            throw new BadRequestError("ERRO: O token é inválido.")
+            throw new BadRequestError("ERRO: O token não existe")
 
         }
         const commentsAndCreatorDB = await this.commentsDataBase.findCommentsAndUserById(idLikeDislike)
