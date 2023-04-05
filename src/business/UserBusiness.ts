@@ -49,11 +49,7 @@ export class UserBusiness {
             throw new BadRequestError("ERROR: 'email' must be like 'example@example.example'.")
         }
 
-        // if (!password.match(/^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[^\da-zA-Z]).{8,12}$/g)) {
-        //     throw new BadRequestError("ERROR: 'password' must be between 8 and 12 characters, with uppercase and lowercase letters and at least one number and one special character")
-        // }
-
-        const emailExist = await this.userDatabase.findEmail(email)
+         const emailExist = await this.userDatabase.findEmail(email)
 
         if (emailExist) {
             throw new BadRequestError("Email já cadastrado.")
@@ -113,7 +109,6 @@ export class UserBusiness {
         const idDB = emailExist.id
         const nickNameDB = emailExist.nick_name
         const roleDB = emailExist.role
-        console.log(emailExist)
 
         const isPasswordCorrect = await this.hashManager.compare(password, passawordDB)
 
@@ -136,4 +131,3 @@ export class UserBusiness {
         return output
     }
 }
-// export default UserBusiness

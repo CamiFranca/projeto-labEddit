@@ -1,4 +1,4 @@
--- Active: 1679941728321@@127.0.0.1@3306
+-- Active: 1680544061325@@127.0.0.1@3306
 
 CREATE TABLE
     users (
@@ -129,7 +129,7 @@ VALUES
     ("u002","c004",1),
     ("u003","c001",1);
 
-SELECT * FROM users;
+SELECT * FROM comments;
 SELECT * FROM likes_dislikes_comment;
 
 DROP TABLE comments;

@@ -37,7 +37,7 @@ export interface CommentsDB {
     post_id: string
     comments: string,
     likes: number,
-    dislikes: number,
+    dislikes: number
 
 }
 export interface CommentsAndItCreatorDB extends CommentsDB {

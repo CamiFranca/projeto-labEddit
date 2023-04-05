@@ -18,7 +18,7 @@ export class CommmentsController {
                 postId: req.params.id,
                 token: req.headers.authorization
             }
- 
+
             const output = await this.commentsBusiness.getCommentsByPostId(input)
 
             res.status(200).send(output)
@@ -40,9 +40,9 @@ export class CommmentsController {
             const input: CreateCommentsInputDTO = {
                 postId: req.params.id,
                 token: req.headers.authorization,
-                comments : req.body.comments
+                comments: req.body.comments
             }
-            console.log("CONTROLLER",input)
+            console.log("CONTROLLER", input)
 
             const output = await this.commentsBusiness.createComments(input)
 
@@ -62,12 +62,12 @@ export class CommmentsController {
     public likeOrDislikeComments = async (req: Request, res: Response) => {
 
         try {
-            const input : LikedislikeCommentInputDTO = {
+            const input: LikedislikeCommentInputDTO = {
                 idLikeDislike: req.params.id,
                 token: req.headers.authorization,
                 like: req.body.like
             }
-            
+
 
             await this.commentsBusiness.likeOrDislikeComments(input)
 

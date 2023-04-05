@@ -231,8 +231,6 @@ export class PostBusiness {
 
         const { id, token, like } = input
 
-        console.log(input,"Business likedislike")
-
         const tokenValid = this.tokenManager.getPayload(token)
 
         if (!tokenValid) {
@@ -264,7 +262,6 @@ export class PostBusiness {
             postAndCreatorDB.likes,
             postAndCreatorDB.dislikes,
             postAndCreatorDB.comments,
-            // postAndCreatorDB.creator_name
         )
 
         const likeDislikeExists = await this.postDataBase.findLikeDislike(formatLikeDislikeDB)
