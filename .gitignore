@@ -2,5 +2,3 @@ coverage
 .env
 node_modules
 build
-.DS_Store
-*.db

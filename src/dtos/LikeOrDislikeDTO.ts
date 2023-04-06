@@ -39,9 +39,7 @@ export class LikeOrDislikeDTO {
         if (like === undefined) {
             throw new BadRequestError("Erro: É preciso enviar um like ou dislike")
         }
-        if (typeof like !== "boolean") {
-            throw new BadRequestError("Erro: O token precisa ser boolean.")
-        }
+      
         const dto: LikeOrDislikeInputDTO= {
             id,
             token,
