@@ -2,10 +2,13 @@
 
 ### O Labeddit é uma rede social com o objetivo de promover a conexão e interação entre pessoas. Quem se cadastrar no aplicativo poderá criar, curtir e comentar publicações. Foi desenvolvido no Bootcamp da Labenu com o proposito de unir todos os conhecimentos de front e back-end.
 
-### API para aplicação de gestão de projetos.
+#### API para aplicação de gestão de projetos.
 Aplicação banck-end de servidor express com banco de dados SQL SQlite 3.
 
-## Stack utilizada: Back-end:
+Link da documentação:
+[Clique aqui!](https://documenter.getpostman.com/view/24460722/2s93RZKoiY)
+
+## Stack utilizada, Back-end:
 * NodeJS
 * Typescript
 * Express
@@ -23,9 +26,6 @@ Aplicação banck-end de servidor express com banco de dados SQL SQlite 3.
 Arquitetura em camadas
 POO
 Roteadores no Express
-
-Link da documentação:
-[Clique aqui!](https://documenter.getpostman.com/view/24460722/2s93RZKoiY)
 
 ## Como rodar este projeto?
 * Terminal bash
