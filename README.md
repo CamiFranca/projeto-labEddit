@@ -6,8 +6,8 @@
 Aplicação banck-end de servidor express com banco de dados SQL SQlite 3.
 
 ## Links úteis:
-Link da documentação: [Clique aqui!](https://documenter.getpostman.com/view/24460722/2s93RZKoiY)
-Link do repositório front-end: [Clique aqui!](https://github.com/CamiFranca/labEddit-front)
+* Link da documentação: [Clique aqui!](https://documenter.getpostman.com/view/24460722/2s93RZKoiY)
+* Link do repositório front-end: [Clique aqui!](https://github.com/CamiFranca/labEddit-front)
 
 ## Stack utilizada, Back-end:
 * NodeJS
