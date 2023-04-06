@@ -8,6 +8,6 @@ Foi seguido o modelo do Figma, um design de app mobile first:  [Clique aqui](htt
 * Mobile First é um conceito aplicado em projetos web onde o foco inicial da arquitetura e desenvolvimento é direcionado aos dispositivos móveis, ou seja, seu layout e funcionalidades são desenvolvidos primeiramente para a tela do celular e a partir disso (se necessário) adaptado para telas maiores, como dos tablets ou desktops.
 Crie repositórios pessoais separados para o front e para o back, pois facilita o processo de deploy.
 
-## Visualize o site: [Clique aqui!](projeto-labeddit-fullstack-camilla-franca.surge.sh)
+## Visualize o site: #### [Clique aqui!](projeto-labeddit-fullstack-camilla-franca.surge.sh)
 #### Veja a documentação do projeto Labeddit-Back-end (POSTMAN): [Clique aqui!](https://documenter.getpostman.com/view/24460722/2s93RZKoiY)
 Acesso ao repositório Labeddit-Back-End: [Clique aqui!](https://github.com/CamiFranca/projeto-labEddit)
