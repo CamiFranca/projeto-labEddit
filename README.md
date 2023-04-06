@@ -5,8 +5,9 @@
 #### API para aplicação de gestão de projetos.
 Aplicação banck-end de servidor express com banco de dados SQL SQlite 3.
 
-Link da documentação:
-[Clique aqui!](https://documenter.getpostman.com/view/24460722/2s93RZKoiY)
+## Links úteis:
+Link da documentação: [Clique aqui!](https://documenter.getpostman.com/view/24460722/2s93RZKoiY)
+Link do repositório front-end: [Clique aqui!](https://github.com/CamiFranca/labEddit-front)
 
 ## Stack utilizada, Back-end:
 * NodeJS
