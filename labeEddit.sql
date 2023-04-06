@@ -129,7 +129,7 @@ VALUES
     ("u002","c004",1),
     ("u003","c001",1);
 
-SELECT * FROM likes_dislikes_post;
+SELECT * FROM comments;
 SELECT * FROM likes_dislikes_comment;
 
 DROP TABLE comments;
