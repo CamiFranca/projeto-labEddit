@@ -23,9 +23,9 @@ Link da documentação:
 * Postman
 
 ## Código:
-Arquitetura em camadas
-POO
-Roteadores no Express
+* Arquitetura em camadas
+* POO
+* Roteadores no Express
 
 ## Como rodar este projeto?
 * Terminal bash
