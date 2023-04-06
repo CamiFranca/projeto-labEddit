@@ -2,24 +2,62 @@
 
 ### O Labeddit é uma rede social com o objetivo de promover a conexão e interação entre pessoas. Quem se cadastrar no aplicativo poderá criar, curtir e comentar publicações. Foi desenvolvido no Bootcamp da Labenu com o proposito de unir todos os conhecimentos de front e back-end.
 
-O design do projeto seguiu um modelo mobile first do Figma, :  [Clique aqui](https://www.figma.com/file/n5xdtQVW0bvFBS0tumN0Sp/Projeto-Integrador-Labeddit-(Copy)?node-id=9-1014&t=mhOyGnUrUdlD00NF-0)
+### API para aplicação de gestão de projetos.
+Aplicação banck-end de servidor express com banco de dados SQL SQlite 3.
 
-* Mobile First é um conceito aplicado em projetos web onde o foco inicial da arquitetura e desenvolvimento é direcionado aos dispositivos móveis, ou seja, seu layout e funcionalidades são desenvolvidos primeiramente para a tela do celular e a partir disso (se necessário) adaptado para telas maiores, como dos tablets ou desktops.
-Crie repositórios pessoais separados para o front e para o back, pois facilita o processo de deploy.
+## Stack utilizada: Back-end:
+* NodeJS
+* Typescript
+* Express
+* SQL e SQLite
+* Knex
+* POO
+* Arquitetura em camadas
+* Geração de UUID
+* Geração de hashes
+* Autenticação e autorização
+* Roteamento
+* Postman
 
-## Links de acesso:
-* Visualize o site: [Clique aqui!](projeto-labeddit-fullstack-camilla-franca.surge.sh)
-* Veja a documentação do projeto Labeddit-Back-end: [Clique aqui!](https://documenter.getpostman.com/view/24460722/2s93RZKoiY)
-* Acesso ao repositório Labeddit-Back-End: [Clique aqui!](https://github.com/CamiFranca/projeto-labEddit)
+## Código:
+Arquitetura em camadas
+POO
+Roteadores no Express
 
-## Stack utilizada:
-* React JS
+Link da documentação:
+[Clique aqui!](https://documenter.getpostman.com/view/24460722/2s93RZKoiY)
 
-## Bibliotecas utilizadas
-* styled-components
-* axios
-* react-router-dom
+## Como rodar este projeto?
+* Terminal bash
 
-## Executando o Projeto
-* npm install: Instalar as dependências listadas no package.json;
-* npm start: Para iniciar a aplicação
+* Clone este repositório git clone ...link do repo AQUI
+
+* Acesse a pasta do projeto no seu terminal, ex: cd projeto-labook
+
+## Instale as dependências:
+* npm install: Instala todas as dependências listadas no package.json;
+
+* npm i cors: biblioteca para liberar acesso externo ao servido;
+
+* npm i express: framework para criar o servidor (API);
+
+* npm i knex: biblioteca query builder para conectar com banco de dados
+
+* npm i sqlite3: biblioteca do banco de dados SQLite
+
+* npm install uuid: tipagens, dependência de produção
+
+* npm install -D @types/uuid:* dependência de desenvolvimento
+
+* npm install dotenv: dependência de produção
+
+* npm install jsonwebtoken: dependência de produção, para facilitar a gestão de tokens
+
+* npm install -D @types/jsonwebtoken: tipagens, dependência de desenvolvimento
+
+* npm i --save-dev @types/bcryptjs: dependência de desenvolvimento
+
+Execute a aplicação
+* rodar o script de dev (npm run dev) ou rodar ou buildar o (npm run start).
+
+* Servidor rodando na porta 3003.
